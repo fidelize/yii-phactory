@@ -1,0 +1,15 @@
+{
+    "name": "fidelize/yii-phactory",
+    "description": "A PHP library for creating data for yii tests.",
+    "type": "library",
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "fidelize\\YiiPhactory\\": "src/"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    }
+}

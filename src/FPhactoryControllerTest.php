@@ -436,7 +436,7 @@ class FPhactoryControllerTest extends FPhactoryTestCase
         ;
         $filterMock->setRules($this->controller->accessRules());
         $filterMock->filter(
-            new CFilterChain(
+            new \CFilterChain(
                 $this->controller,
                 $this->controller->createAction($action)
             )

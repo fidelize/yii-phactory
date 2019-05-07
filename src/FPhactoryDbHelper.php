@@ -61,6 +61,6 @@ class FPhactoryDbHelper
             ORDER BY
                 table_schema,
                 table_name
-        ")->fetchAll(PDO::FETCH_OBJ);
+        ")->fetchAll(\PDO::FETCH_OBJ);
     }
 }

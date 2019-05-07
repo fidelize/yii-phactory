@@ -1,4 +1,6 @@
 <?php
+namespace fidelize\YiiPhactory;
+
 class FPhactoryFormTest extends FPhactoryTestCase
 {
     /**

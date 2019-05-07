@@ -4,6 +4,7 @@
  * Classe com funções usadas recorrentemente em testes, para evitar repetição
  * de código
  */
+namespace fidelize\YiiPhactory;
 
 class FTestLib
 {

@@ -1,6 +1,5 @@
 <?php
-
-Yii::import('fidelize.tests.phactory.FPhactoryTestCase');
+namespace fidelize\YiiPhactory;
 
 class FPhactoryCommandTest extends FPhactoryTestCase
 {

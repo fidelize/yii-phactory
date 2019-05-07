@@ -1,5 +1,7 @@
 <?php
-class FPhactoryBuilder extends \Phactory\Builder
+namespace fidelize\YiiPhactory;
+
+class FPhactoryBuilder extends Phactory\Builder
 {
     protected function toObject($phactoryName, $values)
     {

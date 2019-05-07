@@ -1,6 +1,7 @@
 <?php
+namespace fidelize\YiiPhactory;
 
-class FPhactoryLoader extends \Phactory\Loader
+class FPhactoryLoader extends Phactory\Loader
 {
     /**
      * @inheritdoc

@@ -1,4 +1,6 @@
 <?php
+namespace fidelize\YiiPhactory;
+
 abstract class FPhactoryActiveRecordTest extends FPhactoryTestCase
 {
     /**

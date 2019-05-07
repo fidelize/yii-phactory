@@ -1,11 +1,9 @@
 <?php
+namespace fidelize\YiiPhactory;
 
-Yii::import('system.test.CDbTestCase');
-Yii::import('fidelize.tests.phactory.FPhactoryBuilder');
-Yii::import('fidelize.tests.phactory.FPhactoryLoader');
-Yii::import('fidelize.tests.phactory.FPhactoryDependency');
+use PHPUnit\Framework\TestCase;
 
-abstract class FPhactoryTestCase extends CDbTestCase
+abstract class FPhactoryTestCase extends TestCase
 {
     private $_transaction;
     

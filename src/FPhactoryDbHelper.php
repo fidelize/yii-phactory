@@ -2,6 +2,8 @@
 /**
  * Helper de banco de dados para utilização com a Phactory
  */
+namespace fidelize\YiiPhactory;
+
 class FPhactoryDbHelper
 {
     /**

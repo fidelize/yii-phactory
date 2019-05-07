@@ -1,8 +1,9 @@
 <?php
 
-Yii::import('system.test.CDbTestCase'); 
+namespace fidelize\YiiPhactory;
+use PHPUnit\Framework\TestCase;
 
-class FDbTestCase extends CDbTestCase
+class FDbTestCase extends TestCase
 {
 	/**
 	 * Ativa por padrão a limpeza do banco de dados após a execução de cada teste.

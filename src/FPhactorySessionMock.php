@@ -2,6 +2,8 @@
 /**
  * CHttpSession mocked for controller tests.
  */
+namespace fidelize\YiiPhactory;
+
 class FPhactorySessionMock extends CHttpSession
 {
     /**

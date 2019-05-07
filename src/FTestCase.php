@@ -1,8 +1,9 @@
 <?php
 
-Yii::import('system.test.CTestCase');
+namespace fidelize\YiiPhactory;
+use PHPUnit\Framework\TestCase;
 
-class FTestCase extends CTestCase
+class FTestCase extends TestCase
 {
 
 }

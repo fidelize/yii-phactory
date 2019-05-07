@@ -4,7 +4,7 @@
  */
 namespace fidelize\YiiPhactory;
 
-class FPhactorySessionMock extends CHttpSession
+class FPhactorySessionMock extends \CHttpSession
 {
     /**
      * Stubbed session storage

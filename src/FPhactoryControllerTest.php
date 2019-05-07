@@ -62,19 +62,19 @@ class FPhactoryControllerTest extends FPhactoryTestCase
         $this->controller = $this->getControllerMock();
 
         // Recreate user component
-        Yii::app()->setComponent(
+        \Yii::app()->setComponent(
             'user',
-            Yii::createComponent(['class' => get_class(Yii::app()->user)])
+            \Yii::createComponent(['class' => get_class(\Yii::app()->user)])
         );
 
         // Set current application controller
-        Yii::app()->setController($this->controller);
+        \Yii::app()->setController($this->controller);
 
         // Mock session component
-        Yii::app()->setComponent('session', $this->getSessionMock());
+        \Yii::app()->setComponent('session', $this->getSessionMock());
 
         // Sign out current user
-        Yii::app()->user->logout();
+        \Yii::app()->user->logout();
     }
 
     /**
@@ -106,7 +106,7 @@ class FPhactoryControllerTest extends FPhactoryTestCase
             ->method('getName')
             ->will($this->returnValue('username'))
         ;
-        Yii::app()->user->login($userIdentityMock);
+        \Yii::app()->user->login($userIdentityMock);
     }
 
     /**
@@ -115,7 +115,7 @@ class FPhactoryControllerTest extends FPhactoryTestCase
      */
     protected function signOut()
     {
-        Yii::app()->user->logout();
+        \Yii::app()->user->logout();
     }
 
     /**
@@ -169,7 +169,7 @@ class FPhactoryControllerTest extends FPhactoryTestCase
     protected function assertUserHasFlashMessage($type)
     {
         $this->assertNotNull(
-            Yii::app()->user->getFlash($type),
+            \Yii::app()->user->getFlash($type),
             'Flash message not found.'
         );
     }
@@ -309,7 +309,7 @@ class FPhactoryControllerTest extends FPhactoryTestCase
      */
     protected function getNextIdFor($modelClass)
     {
-        return Yii::app()->db->getLastInsertID(
+        return \Yii::app()->db->getLastInsertID(
             $modelClass::model()->metadata->tableSchema->sequenceName
         );
     }
@@ -395,7 +395,7 @@ class FPhactoryControllerTest extends FPhactoryTestCase
         $className = $this->classPath;
 
         if (false !== strpos($className, '.')) {
-            Yii::import($className);
+            \Yii::import($className);
             $className = explode('.', $className);
             $className = array_pop($className);
         }

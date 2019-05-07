@@ -1,7 +1,7 @@
 <?php
 namespace fidelize\YiiPhactory;
 
-class FPhactoryDependency extends Phactory\Dependency
+class FPhactoryDependency extends \Phactory\Dependency
 {
     /**
      * Checa se a propriedade do Yii existe, porque o ActiveRecord usa

@@ -12,7 +12,7 @@ class FPhactoryBuilder extends Phactory\Builder
 
             $object->$key = $value;
 
-            if ($object instanceof CActiveRecord) {
+            if ($object instanceof \CActiveRecord) {
                 $this->setRelation($object, $key, $values);
             }
         }
@@ -22,7 +22,7 @@ class FPhactoryBuilder extends Phactory\Builder
 
     protected function saveObject($name, $object)
     {
-        if ($object instanceof CActiveRecord) {
+        if ($object instanceof \CActiveRecord) {
 
             if (false == $object->save()) {
 

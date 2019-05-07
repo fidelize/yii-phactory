@@ -14,15 +14,16 @@ abstract class FPhactoryTestCase extends TestCase
     {
         parent::setUp();
 
-        Phactory::reset();
-        Phactory::loader(new FPhactoryLoader);
-        Phactory::builder(new FPhactoryBuilder);
+        \Phactory::reset();
+        \Phactory::loader(new FPhactoryLoader);
+        \Phactory::builder(new FPhactoryBuilder);
 
         if (property_exists('Phactory', 'dependencyClass')) {
-            Phactory::$dependencyClass = 'FPhactoryDependency';
+
+            \Phactory::$dependencyClass = 'FPhactoryDependency';
         }
 
-        $this->_transaction = Yii::app()->db->beginTransaction();
+        $this->_transaction = \Yii::app()->db->beginTransaction();
     }
 
     /**

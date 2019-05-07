@@ -61,7 +61,7 @@ class FPhactoryCommandTest extends FPhactoryTestCase
         $className = $this->classPath;
 
         if (false !== strpos($className, '.')) {
-            Yii::import($className);
+            \Yii::import($className);
             $className = explode('.', $className);
             $className = array_pop($className);
         }

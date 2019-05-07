@@ -10,7 +10,7 @@ class FPhactoryLoader extends Phactory\Loader
     {
         $factoryClass = ucfirst($name) . 'Phactory';
 
-        Yii::import('application.tests.factories.' . $factoryClass);
+        \Yii::import('application.tests.factories.' . $factoryClass);
 
         if (!class_exists($factoryClass)) {
             throw new \Exception("Unknown factory '$name'");

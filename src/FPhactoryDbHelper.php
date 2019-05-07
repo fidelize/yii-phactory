@@ -29,7 +29,7 @@ class FPhactoryDbHelper
             $resetters[] = $sql;
         }
 
-        return Yii::app()->db->pdoInstance->query(
+        return \Yii::app()->db->pdoInstance->query(
             implode("\nUNION\n", $resetters)
         );
     }
@@ -40,7 +40,7 @@ class FPhactoryDbHelper
      */
     public static function getSequences()
     {
-        return Yii::app()->db->pdoInstance->query("
+        return \Yii::app()->db->pdoInstance->query("
             SELECT DISTINCT
                 quote_ident(PGT.schemaname) AS sequence_schema,
                 quote_ident(S.relname) AS sequence_name,

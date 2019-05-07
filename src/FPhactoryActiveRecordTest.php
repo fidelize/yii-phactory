@@ -26,7 +26,7 @@ abstract class FPhactoryActiveRecordTest extends FPhactoryTestCase
      */
     public function testTableName()
     {
-        $command = Yii::app()->db->createCommand();
+        $command = \Yii::app()->db->createCommand();
         $command->select = $this->getModelObject()->primaryKey();
         $command->from = $this->getModelObject()->tableName();
 

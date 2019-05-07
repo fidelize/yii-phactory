@@ -9,9 +9,9 @@
         }
     },
     "require": {
-        "yiisoft/yii": "1.1.17",
         "phpunit/phpunit": "^7",
-        "rbone/phactory": "^1.4"
+        "rbone/phactory": "^1.4",
+        "yiisoft/yii": "^1"
     },
     "require-dev": {
     }

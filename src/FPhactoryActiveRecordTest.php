@@ -173,9 +173,9 @@ abstract class FPhactoryActiveRecordTest extends FPhactoryTestCase
             ];
 
             if (isset($dadosColunas[$attribute]) && in_array($dadosColunas[$attribute]->dbType, $timestamps)) {
-                $object->$attribute = FidelizeDate::getDateTime();
+                $object->$attribute = \FidelizeDate::getDateTime();
             } elseif (isset($dadosColunas[$attribute]) && $dadosColunas[$attribute]->dbType == 'date') {
-                $object->$attribute = FidelizeDate::getDate();
+                $object->$attribute = \FidelizeDate::getDate();
             } else {
                 $object->$attribute = 93;
             }

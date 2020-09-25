@@ -36,7 +36,7 @@ class FPhactoryCommandTest extends FPhactoryTestCase
 
         $mock = $this->getMockBuilder($className)
             ->setConstructorArgs([$name, $runner])
-            ->setMethods(['prompt'])
+            ->setMethods(array_merge(['prompt'], $methods))
             ->getMock()
         ;
         return $mock;

@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+  php:
+    image: php:7.1-fpm
+    container_name: php-phactory
+    restart: always
+    command: bash -c php-fpm
+    volumes:
+      - ./:/var/www/html
+      - /usr/bin/ssh:/usr/bin/ssh
+    environment:
+      - XDEBUG_CONFIG=remote_host=172.17.0.1
+      - PHP_IDE_CONFIG=serverName=Local

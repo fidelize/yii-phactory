@@ -14,7 +14,7 @@ class FDate
             $timestamp = time();
         }
 
-        return Yii::app()->locale->getDateFormatter()->formatDateTime(
+        return \Yii::app()->locale->getDateFormatter()->formatDateTime(
             $timestamp, self::getDateFormatLength(), self::getTimeFormatLength()
         );
     }
@@ -32,7 +32,7 @@ class FDate
             $timestamp = time();
         }
 
-        return Yii::app()->locale->getDateFormatter()->formatDateTime(
+        return \Yii::app()->locale->getDateFormatter()->formatDateTime(
             $timestamp, self::getDateFormatLength(), null
         );
     }
@@ -43,10 +43,10 @@ class FDate
     protected static function getDateFormatLength()
     {
         // N?o cacheia para ser alterado em tempo de execu??o
-        if (empty(Yii::app()->params['dateFormatLength'])) {
+        if (empty(\Yii::app()->params['dateFormatLength'])) {
             return 'short';
         } else {
-            return Yii::app()->params['dateFormatLength'];
+            return \Yii::app()->params['dateFormatLength'];
         }
     }
 
@@ -56,10 +56,10 @@ class FDate
     protected static function getTimeFormatLength()
     {
         // N?o cacheia para ser alterado em tempo de execu??o
-        if (empty(Yii::app()->params['timeFormatLength'])) {
+        if (empty(\Yii::app()->params['timeFormatLength'])) {
             return 'medium';
         } else {
-            return Yii::app()->params['timeFormatLength'];
+            return \Yii::app()->params['timeFormatLength'];
         }
     }
 }

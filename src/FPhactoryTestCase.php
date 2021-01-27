@@ -11,7 +11,7 @@ abstract class FPhactoryTestCase extends TestCase
     /**
      * @inheritdoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -30,7 +30,7 @@ abstract class FPhactoryTestCase extends TestCase
     /**
      * @inheritdoc
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         $this->_transaction->rollBack();

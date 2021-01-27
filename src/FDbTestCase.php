@@ -16,7 +16,7 @@ class FDbTestCase extends TestCase
 	 */
 	protected $fixtures = array();
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (strpos($this->getName(), 'testWithoutDb') !== false) {
             return;

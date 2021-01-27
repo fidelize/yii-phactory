@@ -8,3 +8,4 @@ themes/classic/views/
 /vendor/
 .idea/*
 docker-compose.yml
+composer.lock

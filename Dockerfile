@@ -1,7 +1,7 @@
-FROM php:7.1-fpm
+FROM php:7.4-fpm-buster
 
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y git
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer

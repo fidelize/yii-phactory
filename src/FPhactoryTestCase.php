@@ -7,6 +7,7 @@ use ReflectionClass;
 abstract class FPhactoryTestCase extends TestCase
 {
     private $_transaction;
+    protected $useSlave = false;
     
     /**
      * @inheritdoc
@@ -24,7 +25,15 @@ abstract class FPhactoryTestCase extends TestCase
             \Phactory::$dependencyClass = 'FPhactoryDependency';
         }
 
-        $this->_transaction = \Yii::app()->db->beginTransaction();
+        $this->_transaction = $this->beginTransaction();
+    }
+
+    protected function beginTransaction()
+    {
+        if ($this->useSlave) {
+            return \Yii::app()->db_slave->beginTransaction();
+        }
+        return \Yii::app()->db->beginTransaction();
     }
 
     /**

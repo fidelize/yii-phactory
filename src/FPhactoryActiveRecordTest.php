@@ -160,9 +160,16 @@ abstract class FPhactoryActiveRecordTest extends FPhactoryTestCase
         $dadosColunas = $object->metaData->tableSchema->columns;
         $colunasDaTabela = array_keys($dadosColunas);
         $safeAttributes = $object->getSafeAttributeNames();
+	
+	$oReflectionClass = new \ReflectionClass($class);
 
         foreach ($safeAttributes as $attribute) {
+	    $property = $oReflectionClass->getProperty($attribute);
 
+	    if (!$property || !$property->isPublic()) {
+		    continue;
+	    }
+	
             if (strpos($attribute, "+") !== false){
                 continue;
             }

@@ -21,7 +21,7 @@ abstract class FPhactoryTestCase extends TestCase
 
         if (property_exists('Phactory', 'dependencyClass')) {
 
-            \Phactory::$dependencyClass = 'FPhactoryDependency';
+            \Phactory::$dependencyClass = FPhactoryDependency::class;
         }
 
         $this->_transaction = \Yii::app()->db->beginTransaction();

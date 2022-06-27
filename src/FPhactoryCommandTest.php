@@ -17,7 +17,7 @@ class FPhactoryCommandTest extends FPhactoryTestCase
     /**
      * @inheritdoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -20,8 +20,11 @@ abstract class FPhactoryTestCase extends TestCase
         \Phactory::builder(new FPhactoryBuilder);
 
         if (property_exists('Phactory', 'dependencyClass')) {
-
             \Phactory::$dependencyClass = FPhactoryDependency::class;
+        }
+        
+        if (\Yii::app()->db->getCurrentTransaction()) {
+            \Yii::app()->db->getCurrentTransaction()->rollBack();
         }
 
         $this->_transaction = \Yii::app()->db->beginTransaction();

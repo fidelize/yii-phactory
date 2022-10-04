@@ -190,7 +190,13 @@ abstract class FPhactoryActiveRecordTest extends FPhactoryTestCase
             }
         }
 
-        $criteria = $object->search()->getCriteria()->toArray();
+        $dataProvider = $object->search();
+
+        if (!method_exists($dataProvider, 'getCriteria')) {
+            return ;
+        }
+
+        $criteria = $dataProvider->getCriteria()->toArray();
 
         foreach ($safeAttributes as $safeAttribute) {
 

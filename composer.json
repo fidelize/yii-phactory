@@ -9,7 +9,7 @@
         }
     },
     "require": {
-        "phpunit/phpunit": "^7.5",
+        "phpunit/phpunit": ">=7",
         "rbone/phactory": "^1.4",
         "yiisoft/yii": "^1"
     },

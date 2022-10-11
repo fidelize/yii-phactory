@@ -204,9 +204,9 @@ class FPhactoryControllerTest extends FPhactoryTestCase
      * Expect that a controller method renders a JSON with the following array.
      * @param string $array required json array
      */
-    protected function assertControllerRenderedJson($array)
+    protected function assertControllerRenderedJson($array, $delta = 0.0001)
     {
-        $this->assertEquals($array, $this->jsonParam, 'Rendered a different JSON');
+        $this->assertEqualsWithDelta($array, $this->jsonParam, $delta, 'Rendered a different JSON');
     }
 
     /**

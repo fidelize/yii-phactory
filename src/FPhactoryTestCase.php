@@ -4,6 +4,7 @@ namespace fidelize\YiiPhactory;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
+#[\AllowDynamicProperties]
 abstract class FPhactoryTestCase extends TestCase
 {
     private $_transaction;

@@ -26,9 +26,10 @@ abstract class FPhactoryActiveRecordTest extends FPhactoryTestCase
      */
     public function testTableName()
     {
+        $model = $this->getModelObject();
         $command = \Yii::app()->db->createCommand();
-        $command->select = $this->getModelObject()->primaryKey();
-        $command->from = $this->getModelObject()->tableName();
+        $command->select = $this->resolvePrimaryKeyForSelect($model);
+        $command->from = $model->tableName();
 
         try {
             $command->queryRow();
@@ -37,6 +38,24 @@ abstract class FPhactoryActiveRecordTest extends FPhactoryTestCase
             throw $e;
             $this->fail('Ocorreu um erro ao tentar selecionar da tabela');
         }
+    }
+
+    /**
+     * Colunas da PK para SELECT (schema), evitando primaryKey() vazio do CActiveRecord.
+     *
+     * @param \CActiveRecord $model
+     * @return string|array
+     */
+    protected function resolvePrimaryKeyForSelect($model)
+    {
+        $tableSchema = $model->getTableSchema();
+        $primaryKey = $tableSchema !== null ? $tableSchema->primaryKey : null;
+
+        if ($primaryKey === null || $primaryKey === '' || $primaryKey === []) {
+            return '*';
+        }
+
+        return $primaryKey;
     }
 
     /**

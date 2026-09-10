@@ -1,24 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace fidelize\YiiPhactory;
+
 use PHPUnit\Framework\TestCase;
 
 class FDbTestCase extends TestCase
 {
-	/**
-	 * Ativa por padrão a limpeza do banco de dados após a execução de cada teste.
-	 *
-	 * @var array a list of fixtures that should be loaded before each test method executes.
-	 * The array keys are fixture names, and the array values are either AR class names
-	 * or table names. If table names, they must begin with a colon character (e.g. 'Post'
-	 * means an AR class, while ':post' means a table name).
-	 * Defaults to false, meaning fixtures will not be used at all.
-	 */
-	protected $fixtures = array();
+    /**
+     * @var array<string, string|false>
+     */
+    protected array $fixtures = [];
 
     protected function setUp(): void
     {
-        if (strpos($this->getName(), 'testWithoutDb') !== false) {
+        if (str_contains($this->name(), 'testWithoutDb')) {
             return;
         }
         parent::setUp();

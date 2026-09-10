@@ -8,12 +8,28 @@
             "fidelize\\YiiPhactory\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "fidelize\\YiiPhactory\\Tests\\": "tests/"
+        }
+    },
     "require": {
         "php": ">=8.3",
         "rbone/phactory": "^1.4",
         "yiisoft/yii": "^1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10.5"
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^10.5",
+        "rector/rector": "^2.6"
+    },
+    "scripts": {
+        "cs:fix": "vendor/bin/php-cs-fixer fix",
+        "cs:check": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "phpstan": "vendor/bin/phpstan analyse --no-progress",
+        "rector": "vendor/bin/rector process",
+        "rector:check": "vendor/bin/rector process --dry-run",
+        "test": "vendor/bin/phpunit --no-coverage"
     }
 }

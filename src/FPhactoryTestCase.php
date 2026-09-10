@@ -1,14 +1,18 @@
 <?php
+
+declare(strict_types=1);
+
 namespace fidelize\YiiPhactory;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 #[\AllowDynamicProperties]
 abstract class FPhactoryTestCase extends TestCase
 {
-    private $_transaction;
-    
+    private ?\CDbTransaction $_transaction = null;
+
     /**
      * @inheritdoc
      */
@@ -17,13 +21,13 @@ abstract class FPhactoryTestCase extends TestCase
         parent::setUp();
 
         \Phactory::reset();
-        \Phactory::loader(new FPhactoryLoader);
-        \Phactory::builder(new FPhactoryBuilder);
+        \Phactory::loader(new FPhactoryLoader());
+        \Phactory::builder(new FPhactoryBuilder());
 
         if (property_exists('Phactory', 'dependencyClass')) {
             \Phactory::$dependencyClass = FPhactoryDependency::class;
         }
-        
+
         if (\Yii::app()->db->getCurrentTransaction()) {
             \Yii::app()->db->getCurrentTransaction()->rollBack();
         }
@@ -37,33 +41,54 @@ abstract class FPhactoryTestCase extends TestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-        $this->_transaction->rollBack();
+        $this->_transaction?->rollBack();
     }
-    
+
     /**
-     * @param object $classObject
-     * @param string $property
+     * @template T of object
+     *
+     * @param class-string<T> $className
+     * @param list<non-empty-string> $onlyMethods
+     * @param list<mixed> $constructorArgs
+     *
+     * @return MockObject&T
+     */
+    protected function createPartialMock(
+        string $className,
+        array $onlyMethods,
+        array $constructorArgs = [],
+    ): MockObject {
+        if (!class_exists($className)) {
+            throw new \RuntimeException('Class does not exist: ' . $className);
+        }
+
+        return $this->getMockBuilder($className)
+            ->setConstructorArgs($constructorArgs)
+            ->onlyMethods($onlyMethods)
+            ->getMock();
+    }
+
+    /**
      * This method is used to get private AND protected class property values
      */
-    protected function getPrivatePropertyValue($classObject, $property)
+    protected function getPrivatePropertyValue(object $classObject, string $property): mixed
     {
         $reflection = new ReflectionClass($classObject);
         $reflection_property = $reflection->getProperty($property);
-        $reflection_property->setAccessible(true);
+
         return $reflection_property->getValue($classObject);
     }
-    
+
     /**
-     * @param object $classObject
-     * @param string $methodName
-     * @param array $args
      * This method is used to execute private AND protected methods
+     *
+     * @param array<int, mixed> $args
      */
-    protected function executePrivateMethod($classObject, $methodName, $args)
+    protected function executePrivateMethod(object $classObject, string $methodName, array $args): mixed
     {
         $reflection = new ReflectionClass($classObject);
         $method = $reflection->getMethod($methodName);
-        $method->setAccessible(true);
+
         return $method->invokeArgs($classObject, $args);
     }
 }

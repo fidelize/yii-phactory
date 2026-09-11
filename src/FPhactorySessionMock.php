@@ -306,7 +306,7 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * Returns the session variable value with the session variable name.
      */
-    public function get(int|string $key, mixed $defaultValue = null): mixed
+    public function get($key, $defaultValue = null): mixed
     {
         $session = $this->sessionData();
 
@@ -316,7 +316,7 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * Returns the session variable value with the session variable name.
      */
-    public function itemAt(int|string $key): mixed
+    public function itemAt($key): mixed
     {
         $session = $this->sessionData();
 
@@ -326,7 +326,7 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * Adds a session variable.
      */
-    public function add(int|string $key, mixed $value): void
+    public function add($key, $value): void
     {
         $this->ensureSession();
         $this->_session[$key] = $value;
@@ -335,7 +335,7 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * Removes a session variable.
      */
-    public function remove(int|string $key): mixed
+    public function remove($key): mixed
     {
         $session = $this->sessionData();
 
@@ -366,7 +366,7 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * @param int|string $key session variable name
      */
-    public function contains(int|string $key): bool
+    public function contains($key): bool
     {
         return array_key_exists($key, $this->sessionData());
     }

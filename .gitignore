@@ -1,3 +1,6 @@
+.phpunit.result.cache
+.phpunit.cache
+.php-cs-fixer.cache
 assets/*
 !assets/.gitignore
 protected/runtime/*
@@ -8,3 +11,6 @@ themes/classic/views/
 /vendor/
 .idea/*
 docker-compose.yml
+phpunit.xml
+AGENTS.md
+.DS_Store

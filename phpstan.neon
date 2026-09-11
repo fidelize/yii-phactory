@@ -1,0 +1,10 @@
+parameters:
+    level: 10
+    treatPhpDocTypesAsCertain: false
+    paths:
+        - src
+    bootstrapFiles:
+        - phpstan-stubs/yii.php
+    stubFiles:
+        - phpstan-stubs/phactory.php
+    ignoreErrors: []

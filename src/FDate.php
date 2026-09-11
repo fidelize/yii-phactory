@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace fidelize\YiiPhactory;
 
 class FDate
@@ -8,14 +10,14 @@ class FDate
      * @param integer $timestamp Timestamp (se for nulo, pega a hora atual)
      * @return string A data/hora no formato do idioma atual do Yii
      */
-    public static function getDateTime($timestamp = null)
+    public static function getDateTime(?int $timestamp = null): string
     {
-        if (null === $timestamp) {
-            $timestamp = time();
-        }
+        $timestamp ??= time();
 
         return \Yii::app()->locale->getDateFormatter()->formatDateTime(
-            $timestamp, self::getDateFormatLength(), self::getTimeFormatLength()
+            $timestamp,
+            self::getDateFormatLength(),
+            self::getTimeFormatLength(),
         );
     }
 
@@ -26,40 +28,44 @@ class FDate
      * @param integer $timestamp Timestamp (se for nulo, pega a hora atual)
      * @return string A data no formato do idioma atual do Yii
      */
-    public static function getDate($timestamp = null)
+    public static function getDate(?int $timestamp = null): string
     {
-        if (null === $timestamp) {
-            $timestamp = time();
-        }
+        $timestamp ??= time();
 
         return \Yii::app()->locale->getDateFormatter()->formatDateTime(
-            $timestamp, self::getDateFormatLength(), null
+            $timestamp,
+            self::getDateFormatLength(),
+            null,
         );
     }
 
     /**
      * @return string Formato do Yii de data
      */
-    protected static function getDateFormatLength()
+    protected static function getDateFormatLength(): string
     {
         // N?o cacheia para ser alterado em tempo de execu??o
         if (empty(\Yii::app()->params['dateFormatLength'])) {
             return 'short';
-        } else {
-            return \Yii::app()->params['dateFormatLength'];
         }
+
+        $length = \Yii::app()->params['dateFormatLength'];
+
+        return is_string($length) ? $length : 'short';
     }
 
     /**
      * @return string Formato do Yii de hora
      */
-    protected static function getTimeFormatLength()
+    protected static function getTimeFormatLength(): string
     {
         // N?o cacheia para ser alterado em tempo de execu??o
         if (empty(\Yii::app()->params['timeFormatLength'])) {
             return 'medium';
-        } else {
-            return \Yii::app()->params['timeFormatLength'];
         }
+
+        $length = \Yii::app()->params['timeFormatLength'];
+
+        return is_string($length) ? $length : 'medium';
     }
 }

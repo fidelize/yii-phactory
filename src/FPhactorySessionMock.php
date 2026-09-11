@@ -1,64 +1,60 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * CHttpSession mocked for controller tests.
  */
+
 namespace fidelize\YiiPhactory;
 
 class FPhactorySessionMock extends \CHttpSession
 {
     /**
      * Stubbed session storage
-     * @var array
+     *
+     * @var array<string|int, mixed>|null
      */
-    protected $_session;
+    protected ?array $_session = null;
 
     /**
      * Stubbed session timeout
-     * @var integer
      */
-    protected $_timeout = 1440;
+    protected int $_timeout = 1440;
 
     /**
      * Stubbed session ID
-     * @var integer
      */
-    protected $_id = 1;
+    protected string $_id = '1';
 
     /**
      * Stubbed session name
-     * @var string
      */
-    protected $_name = 'session';
+    protected string $_name = 'session';
 
     /**
      * Stubbed session path
-     * @var string
      */
-    protected $_path = '/';
+    protected string $_path = '/';
 
     /**
      * Initializes the application component.
      * This method is required by IApplicationComponent and is invoked by application.
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
 
-        if($this->autoStart)
+        if ($this->autoStart) {
             $this->open();
-        register_shutdown_function(array($this,'close'));
+        }
+        register_shutdown_function([$this, 'close']);
     }
 
     /**
      * Returns a value indicating whether to use custom session storage.
-     * This method should be overriden to return true if custom session storage handler should be used.
-     * If returning true, make sure the methods {@link openSession}, {@link closeSession}, {@link readSession},
-     * {@link writeSession}, {@link destroySession}, and {@link gcSession} are overridden in child
-     * class, because they will be used as the callback handlers.
-     * The default implementation always return false.
-     * @return boolean whether to use custom storage.
      */
-    public function getUseCustomStorage()
+    public function getUseCustomStorage(): bool
     {
         return false;
     }
@@ -66,7 +62,7 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * Starts the session if it has not started yet.
      */
-    public function open()
+    public function open(): void
     {
         $this->_session = [];
     }
@@ -74,7 +70,7 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * Ends the current session and store session data.
      */
-    public function close()
+    public function close(): void
     {
         $this->_session = null;
     }
@@ -82,7 +78,7 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * Frees all session variables and destroys all data registered to a session.
      */
-    public function destroy()
+    public function destroy(): void
     {
         $this->_session = null;
     }
@@ -90,7 +86,7 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * @return boolean whether the session has started
      */
-    public function getIsStarted()
+    public function getIsStarted(): bool
     {
         return $this->_session !== null;
     }
@@ -98,7 +94,7 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * @return string the current session ID
      */
-    public function getSessionID()
+    public function getSessionID(): string
     {
         return $this->_id;
     }
@@ -106,26 +102,23 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * @param string $value the session ID for the current session
      */
-    public function setSessionID($value)
+    public function setSessionID(mixed $value): void
     {
-        $this->_id = $value;
+        $this->_id = (string) $value;
     }
 
     /**
      * Updates the current session id with a newly generated one .
-     * Please refer to {@link http://php.net/session_regenerate_id} for more details.
-     * @param boolean $deleteOldSession Whether to delete the old associated session file or not.
-     * @since 1.1.8
      */
-    public function regenerateID($deleteOldSession=false)
+    public function regenerateID(mixed $deleteOldSession = false): void
     {
-        $this->_id = $this->setSessionID(uniqid());
+        $this->setSessionID((string) uniqid());
     }
 
     /**
      * @return string the current session name
      */
-    public function getSessionName()
+    public function getSessionName(): string
     {
         return $this->_name;
     }
@@ -133,53 +126,46 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * @param string $value the session name for the current session, must be an alphanumeric string, defaults to PHPSESSID
      */
-    public function setSessionName($value)
+    public function setSessionName(mixed $value): void
     {
-        $this->_name = $value;
+        $this->_name = (string) $value;
     }
 
     /**
      * @return string the current session save path, defaults to {@link http://php.net/session.save_path}.
      */
-    public function getSavePath()
+    public function getSavePath(): string
     {
         return $this->_path;
     }
 
     /**
      * @param string $value the current session save path
-     * @throws CException if the path is not a valid directory
      */
-    public function setSavePath($value)
+    public function setSavePath(mixed $value): void
     {
-        $this->_path = $value;
+        $this->_path = (string) $value;
     }
 
     /**
-     * @return array the session cookie parameters.
-     * @see http://us2.php.net/manual/en/function.session-get-cookie-params.php
+     * @return array<string, mixed> the session cookie parameters.
      */
-    public function getCookieParams()
+    public function getCookieParams(): array
     {
         return [];
     }
 
     /**
      * Sets the session cookie parameters.
-     * The effect of this method only lasts for the duration of the script.
-     * Call this method before the session starts.
-     * @param array $value cookie parameters, valid keys include: lifetime, path,
-     * domain, secure, httponly. Note that httponly is all lowercase.
-     * @see http://us2.php.net/manual/en/function.session-set-cookie-params.php
+     *
+     * @param array<string, mixed> $value cookie parameters
      */
-    public function setCookieParams($value)
-    {
-    }
+    public function setCookieParams(mixed $value): void {}
 
     /**
      * @return string how to use cookie to store session ID. Defaults to 'Allow'.
      */
-    public function getCookieMode()
+    public function getCookieMode(): string
     {
         return 'none';
     }
@@ -187,30 +173,25 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * @param string $value how to use cookie to store session ID. Valid values include 'none', 'allow' and 'only'.
      */
-    public function setCookieMode($value)
-    {
-    }
+    public function setCookieMode(mixed $value): void {}
 
     /**
      * @return float the probability (percentage) that the gc (garbage collection) process is started on every session initialization, defaults to 1 meaning 1% chance.
      */
-    public function getGCProbability()
+    public function getGCProbability(): float
     {
         return 1;
     }
 
     /**
      * @param float $value the probability (percentage) that the gc (garbage collection) process is started on every session initialization.
-     * @throws CException if the value is beyond [0,100]
      */
-    public function setGCProbability($value)
-    {
-    }
+    public function setGCProbability(mixed $value): void {}
 
     /**
      * @return boolean whether transparent sid support is enabled or not, defaults to false.
      */
-    public function getUseTransparentSessionID()
+    public function getUseTransparentSessionID(): bool
     {
         return false;
     }
@@ -218,14 +199,12 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * @param boolean $value whether transparent sid support is enabled or not.
      */
-    public function setUseTransparentSessionID($value)
-    {
-    }
+    public function setUseTransparentSessionID(mixed $value): void {}
 
     /**
      * @return integer the number of seconds after which data will be seen as 'garbage' and cleaned up, defaults to 1440 seconds.
      */
-    public function getTimeout()
+    public function getTimeout(): int
     {
         return $this->_timeout;
     }
@@ -233,80 +212,55 @@ class FPhactorySessionMock extends \CHttpSession
     /**
      * @param integer $value the number of seconds after which data will be seen as 'garbage' and cleaned up
      */
-    public function setTimeout($value)
+    public function setTimeout(mixed $value): void
     {
-        $this->_timeout = $value;
+        $this->_timeout = (int) $value;
     }
 
     /**
      * Session open handler.
-     * This method should be overridden if {@link useCustomStorage} is set true.
-     * Do not call this method directly.
-     * @param string $savePath session save path
-     * @param string $sessionName session name
-     * @return boolean whether session is opened successfully
      */
-    public function openSession($savePath,$sessionName)
+    public function openSession(mixed $savePath, mixed $sessionName): bool
     {
         return true;
     }
 
     /**
      * Session close handler.
-     * This method should be overridden if {@link useCustomStorage} is set true.
-     * Do not call this method directly.
-     * @return boolean whether session is closed successfully
      */
-    public function closeSession()
+    public function closeSession(): bool
     {
         return true;
     }
 
     /**
      * Session read handler.
-     * This method should be overridden if {@link useCustomStorage} is set true.
-     * Do not call this method directly.
-     * @param string $id session ID
-     * @return string the session data
      */
-    public function readSession($id)
+    public function readSession(mixed $id): string
     {
         return '';
     }
 
     /**
      * Session write handler.
-     * This method should be overridden if {@link useCustomStorage} is set true.
-     * Do not call this method directly.
-     * @param string $id session ID
-     * @param string $data session data
-     * @return boolean whether session write is successful
      */
-    public function writeSession($id,$data)
+    public function writeSession(mixed $id, mixed $data): bool
     {
         return true;
     }
 
     /**
      * Session destroy handler.
-     * This method should be overridden if {@link useCustomStorage} is set true.
-     * Do not call this method directly.
-     * @param string $id session ID
-     * @return boolean whether session is destroyed successfully
      */
-    public function destroySession($id)
+    public function destroySession(mixed $id): bool
     {
         return true;
     }
 
     /**
      * Session GC (garbage collection) handler.
-     * This method should be overridden if {@link useCustomStorage} is set true.
-     * Do not call this method directly.
-     * @param integer $maxLifetime the number of seconds after which data will be seen as 'garbage' and cleaned up.
-     * @return boolean whether session is GCed successfully
      */
-    public function gcSession($maxLifetime)
+    public function gcSession(mixed $maxLifetime): bool
     {
         return true;
     }
@@ -315,157 +269,184 @@ class FPhactorySessionMock extends \CHttpSession
 
     /**
      * Returns an iterator for traversing the session variables.
-     * This method is required by the interface IteratorAggregate.
-     * @return CHttpSessionIterator an iterator for traversing the session variables.
      */
-    public function getIterator()
+    public function getIterator(): \Iterator
     {
-        throw new Exception('CHttpSessionIterator has not been mocked yet.');
-        //return new CHttpSessionIterator;
+        throw new \Exception('CHttpSessionIterator has not been mocked yet.');
     }
 
     /**
      * Returns the number of items in the session.
-     * @return integer the number of session variables
+     *
+     * @return int<0, max>
      */
-    public function getCount()
+    public function getCount(): int
     {
-        return count($this->_session);
+        return count($this->sessionData());
     }
 
     /**
      * Returns the number of items in the session.
-     * This method is required by Countable interface.
-     * @return integer number of items in the session.
+     *
+     * @return int<0, max>
      */
-    public function count()
+    public function count(): int
     {
         return $this->getCount();
     }
 
     /**
-     * @return array the list of session variable names
+     * @return list<string|int> the list of session variable names
      */
-    public function getKeys()
+    public function getKeys(): array
     {
-        return array_keys($this->_session);
+        return array_keys($this->sessionData());
     }
 
     /**
      * Returns the session variable value with the session variable name.
-     * This method is very similar to {@link itemAt} and {@link offsetGet},
-     * except that it will return $defaultValue if the session variable does not exist.
-     * @param mixed $key the session variable name
-     * @param mixed $defaultValue the default value to be returned when the session variable does not exist.
-     * @return mixed the session variable value, or $defaultValue if the session variable does not exist.
-     * @since 1.1.2
      */
-    public function get($key,$defaultValue=null)
+    public function get($key, $defaultValue = null): mixed
     {
-        return isset($this->_session[$key]) ? $this->_session[$key] : $defaultValue;
+        $session = $this->sessionData();
+
+        return array_key_exists($key, $session) ? $session[$key] : $defaultValue;
     }
 
     /**
      * Returns the session variable value with the session variable name.
-     * This method is exactly the same as {@link offsetGet}.
-     * @param mixed $key the session variable name
-     * @return mixed the session variable value, null if no such variable exists
      */
-    public function itemAt($key)
+    public function itemAt($key): mixed
     {
-        return isset($this->_session[$key]) ? $this->_session[$key] : null;
+        $session = $this->sessionData();
+
+        return array_key_exists($key, $session) ? $session[$key] : null;
     }
 
     /**
      * Adds a session variable.
-     * Note, if the specified name already exists, the old value will be removed first.
-     * @param mixed $key session variable name
-     * @param mixed $value session variable value
      */
-    public function add($key,$value)
+    public function add($key, $value): void
     {
-        $this->_session[$key]=$value;
+        $this->ensureSession();
+        $this->_session[$key] = $value;
     }
 
     /**
      * Removes a session variable.
-     * @param mixed $key the name of the session variable to be removed
-     * @return mixed the removed value, null if no such session variable.
      */
-    public function remove($key)
+    public function remove($key): mixed
     {
-        if(isset($this->_session[$key]))
-        {
-            $value=$this->_session[$key];
-            unset($this->_session[$key]);
-            return $value;
-        }
-        else
+        $session = $this->sessionData();
+
+        if (!array_key_exists($key, $session)) {
             return null;
+        }
+
+        $value = $session[$key];
+        unset($this->_session[$key]);
+
+        return $value;
     }
 
     /**
      * Removes all session variables
      */
-    public function clear()
+    public function clear(): void
     {
-        foreach(array_keys($this->_session) as $key)
+        if ($this->_session === null) {
+            return;
+        }
+
+        foreach (array_keys($this->_session) as $key) {
             unset($this->_session[$key]);
+        }
     }
 
     /**
-     * @param mixed $key session variable name
-     * @return boolean whether there is the named session variable
+     * @param int|string $key session variable name
      */
-    public function contains($key)
+    public function contains($key): bool
     {
-        return isset($this->_session[$key]);
+        return array_key_exists($key, $this->sessionData());
     }
 
     /**
-     * @return array the list of all session variables in array
+     * @return array<string|int, mixed> the list of all session variables in array
      */
-    public function toArray()
+    public function toArray(): array
     {
-        return $this->_session;
-    }
-
-    /**
-     * This method is required by the interface ArrayAccess.
-     * @param mixed $offset the offset to check on
-     * @return boolean
-     */
-    public function offsetExists($offset)
-    {
-        return isset($this->_session[$offset]);
+        return $this->sessionData();
     }
 
     /**
      * This method is required by the interface ArrayAccess.
-     * @param integer $offset the offset to retrieve element.
-     * @return mixed the element at the offset, null if no element is found at the offset
      */
-    public function offsetGet($offset)
+    public function offsetExists(mixed $offset): bool
     {
-        return isset($this->_session[$offset]) ? $this->_session[$offset] : null;
+        if (!is_int($offset) && !is_string($offset)) {
+            return false;
+        }
+
+        return array_key_exists($offset, $this->sessionData());
     }
 
     /**
      * This method is required by the interface ArrayAccess.
-     * @param integer $offset the offset to set element
-     * @param mixed $item the element value
      */
-    public function offsetSet($offset,$item)
+    public function offsetGet(mixed $offset): mixed
     {
-        $this->_session[$offset]=$item;
+        if (!is_int($offset) && !is_string($offset)) {
+            return null;
+        }
+
+        $session = $this->sessionData();
+
+        return array_key_exists($offset, $session) ? $session[$offset] : null;
     }
 
     /**
      * This method is required by the interface ArrayAccess.
-     * @param mixed $offset the offset to unset element
      */
-    public function offsetUnset($offset)
+    public function offsetSet(mixed $offset, mixed $item): void
     {
+        $this->ensureSession();
+
+        if ($offset === null) {
+            $this->_session[] = $item;
+
+            return;
+        }
+
+        if (!is_int($offset) && !is_string($offset)) {
+            return;
+        }
+
+        $this->_session[$offset] = $item;
+    }
+
+    /**
+     * This method is required by the interface ArrayAccess.
+     */
+    public function offsetUnset(mixed $offset): void
+    {
+        if (!is_int($offset) && !is_string($offset) || $this->_session === null) {
+            return;
+        }
+
         unset($this->_session[$offset]);
+    }
+
+    /**
+     * @return array<string|int, mixed>
+     */
+    private function sessionData(): array
+    {
+        return $this->_session ?? [];
+    }
+
+    private function ensureSession(): void
+    {
+        $this->_session ??= [];
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace fidelize\YiiPhactory;
+
 use PHPUnit\Framework\TestCase;
 
-class FTestCase extends TestCase
-{
-
-}
+#[\AllowDynamicProperties]
+class FTestCase extends TestCase {}

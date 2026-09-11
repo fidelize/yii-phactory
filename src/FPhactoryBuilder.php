@@ -78,7 +78,7 @@ class FPhactoryBuilder extends \Phactory\Builder
         if (empty($values[$relationAttribute])) {
             // Se o valor é um objeto, atribui o id dele a relation_id
             $related = $object->$attribute;
-            if (is_object($related) && property_exists($related, 'id')) {
+            if (is_object($related) && isset($related->id)) {
                 $object->$relationAttribute = $related->id;
             } elseif (null === $related) {
                 $object->$relationAttribute = null;

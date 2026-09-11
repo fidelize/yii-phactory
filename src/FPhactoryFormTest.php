@@ -79,7 +79,7 @@ class FPhactoryFormTest extends FPhactoryTestCase
     /**
      * Adivinha o nome do modelo pelo nome da classe de teste
      */
-    protected function getModelObject(): \CActiveRecord
+    protected function getModelObject(): \CModel
     {
         $modelClass = $this->getModelClass();
 
@@ -89,8 +89,8 @@ class FPhactoryFormTest extends FPhactoryTestCase
 
         $object = new $modelClass();
 
-        if (!$object instanceof \CActiveRecord) {
-            throw new \RuntimeException('Model class must extend CActiveRecord: ' . $modelClass);
+        if (!$object instanceof \CModel) {
+            throw new \RuntimeException('Model class must extend CModel: ' . $modelClass);
         }
 
         return $object;
